@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The New Tone - Where Every Tone Rocks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ffd700, #ffb347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffd700, #ffb347, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #cccccc;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ffd700, #ffb347);
+            color: #1a1a2e;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #ffd700, #ffb347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #cccccc;
+        }
+
+        .about-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.8), rgba(255, 179, 71, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .overlay-text {
+            color: #1a1a2e;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .programs {
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 30px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .program-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .program-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .program-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .contact {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 179, 71, 0.1));
+            border-radius: 30px;
+            padding: 3rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer {
+            background: #1a1a2e;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .section {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjwhLS0gT3V0ZXIgQmxhY2sgQ2lyY2xlIC0tPgo8Y2lyY2xlIGN4PSIyNTAiIGN5PSIyNTAiIHI9IjI0NSIgZmlsbD0iIzFFMTkzMyIgc3Ryb2tlPSJub25lIi8+CjwhLS0gR29sZGVuIEJvcmRlciAtLT4KPGNpcmNsZSBjeD0iMjUwIiBjeT0iMjUwIiByPSIyMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibGluZWFyLWdyYWRpZW50KDQ1ZGVnLCAjRkZEODQ1IDAlLCAjRkZBNTMwIDUwJSwgI0ZGRDg0NSAxMDAlKSIgc3Ryb2tlLXdpZHRoPSIyNSIvPgo8IS0tIElubmVyIEJsYWNrIEJhY2tncm91bmQgLS0+CjxjaXJjbGUgY3g9IjI1MCIgY3k9IjI1MCIgcj0iMTk1IiBmaWxsPSIjMUUxOTMzIi8+CjwhLS0gVGV4dDogVEhFIE5FVyBUT05FIC0tPgo8cGF0aCBpZD0iY2lyY2xlLXBhdGgiIGQ9Ik0gMjUwLDEwMCBBIDE1MSwxNTEgMCAwLDEgMjUwLDQwMCBBIDE1MSwxNTEgMCAwLDEgMjUwLDEwMCIgZmlsbD0ibm9uZSIvPgo8dGV4dCBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzIiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJsaW5lYXItZ3JhZGllbnQoNDVkZWcsICNGRkQ4NDUgMCUsICNGRkE1MzAgMTAwJSkiPgo8dGV4dFBhdGggaHJlZj0iI2NpcmNsZS1wYXRoIiBzdGFydE9mZnNldD0iMCUiPgpUSEUgTkVXIFRPTkUKPC90ZXh0UGF0aD4KPC90ZXh0Pgo8IS0tIENlbnRyYWwgV2hpdGUgVmlueWwgLS0+CjxjaXJjbGUgY3g9IjI1MCIgY3k9IjI1MCIgcj0iMTE1IiBmaWxsPSIjRkZGRkZGIi8+CjwhLS0gSW5uZXIgR3Jvb3ZlcyAtLT4KPGNpcmNsZSBjeD0iMjUwIiBjeT0iMjUwIiByPSIxMDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzFFMTkzMyIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIwLjMiLz4KPGNpcmNsZSBjeD0iMjUwIiBjeT0iMjUwIiByPSI4NSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMUUxOTMzIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuMyIvPgo8Y2lyY2xlIGN4PSIyNTAiIGN5PSIyNTAiIHI9IjcwIiBmaWxsPSJub25lIiBzdHJva2U9IiMxRTE5MzMiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iMC4zIi8+CjxjaXJjbGUgY3g9IjI1MCIgY3k9IjI1MCIgcj0iNTUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzFFMTkzMyIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIwLjMiLz4KPCEtLSBDZW50ZXIgU291bmR3YXZlIC0tPgo8Y2lyY2xlIGN4PSIyNTAiIGN5PSIyNTAiIHI9IjI1IiBmaWxsPSIjMUUxOTMzIi8+CjxwYXRoIGQ9Ik0yMzUgMjUwTDI0MCAyMzVMMjQ1IDI2MEwyNTAgMjMwTDI1NSAyNzBMMjYwIDI0MEwyNjUgMjUwIiBzdHJva2U9IiNGRkQ4NDUiIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSIvPgo8IS0tIE1pY3JvcGhvbmUgLS0+CjxlbGxpcHNlIGN4PSIxODAiIGN5PSIxODAiIHJ4PSI4IiByeT0iMTYiIGZpbGw9IiMxRTE5MzMiIHRyYW5zZm9ybT0icm90YXRlKC00NSAxODAgMTgwKSIvPgo8bGluZSB4MT0iMTczIiB5MT0iMTg3IiB4Mj0iMjAwIiB5Mj0iMjE0IiBzdHJva2U9IiMxRTE5MzMiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjwhLS0gSGFuZCAtLT4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzEwLCAyNTApIHNjYWxlKDEuNSkiPgo8cGF0aCBkPSJNMjAgMTBMMTggMjBMMTYgMzBMMTggNDBMMjAgNDBMMjIgMzBMMjQgMjBMMjYgMTBaMjAgMTBaIiBmaWxsPSIjMUUxOTMzIi8+CjxwYXRoIGQ9Ik0yNSAxNU0yMyAyNU0yMSAzNE0yMyAzNU0yNSAzNU0yNyAzNU0yOSAyNU0zMSAxNVoiIHN0cm9rZT0iIzFFMTkzMyIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9nPgo8IS0tIEFkZGl0aW9uYWwgRGV0YWlscyAtLT4KPGNpcmNsZSBjeD0iMTAwIiBjeT0iMjUwIiByPSI0IiBmaWxsPSIjRkZGRkZGIi8+CjxjaXJjbGUgY3g9IjQwMCIgY3k9IjI1MCIgcj0iNCIgZmlsbD0iI0ZGRkZGRiIvPgo8L3N2Zz4K" alt="The New Tone Logo">
+                <div class="logo-text">The New Tone</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>The New Tone</h1>
+            <p class="tagline">Where Every Tone Rocks</p>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #cccccc;">
+                Empowering musicians, building community, and creating unforgettable musical experiences
+            </p>
+            <button class="cta-button" onclick="scrollToSection('about')">Discover Our Music</button>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h2>About The New Tone</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>The New Tone is more than just a music organization – we're a vibrant community of passionate musicians, educators, and music lovers dedicated to fostering musical excellence and creativity.</p>
+                
+                <p>Founded on the belief that "Where Every Tone Rocks," we provide a platform for musicians of all skill levels to develop their talents, collaborate with fellow artists, and share their passion for music with the world.</p>
+                
+                <p>Our diverse community includes instrumentalists, vocalists, composers, and music enthusiasts who come together to create, learn, and perform. Whether you're a seasoned professional or just starting your musical journey, The New Tone welcomes you.</p>
+            </div>
+            <div class="about-image">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCAjMWExYTJlIDAlLCAjMTYyMTNlIDUwJSwgIzBmMzQ2MCAxMDAlKSIvPgo8Y2lyY2xlIGN4PSIyMDAiIGN5PSIxNTAiIHI9IjgwIiBmaWxsPSJyZ2JhKDI1NSwgMjE1LCAwLCAwLjEpIiBzdHJva2U9IiNmZmQ3MDAiIHN0cm9rZS13aWR0aD0iMyIvPgo8cGF0aCBkPSJNMTQwIDEyMEwxNjAgMTAwTDE4MCA1MEwyMDAgNzBMMjIwIDQwTDI0MCA2MEwyNjAgODAiIHN0cm9rZT0iI2ZmZDcwMCIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIi8+CjxjaXJjbGUgY3g9IjE1MCIgY3k9IjEwMCIgcj0iNSIgZmlsbD0iI2ZmZDcwMCIvPgo8Y2lyY2xlIGN4PSIyNTAiIGN5PSIyMDAiIHI9IjUiIGZpbGw9IiNmZmQ3MDAiLz4KPHN2Zz4K" alt="Musical Community">
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section">
+        <h2>Our Musical Journey</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDMwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjUwIiBmaWxsPSJsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCAjZmY2YjM1IDAlLCAjZjc5MzFlIDEwMCUpIi8+CjxyZWN0IHg9IjUwIiB5PSI4MCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iIzFhMWEyZSIgcng9IjUiLz4KPHN2Zz4K" alt="Band Performance">
+                <div class="gallery-overlay">
+                    <div class="overlay-text">Live Performances</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDMwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjUwIiBmaWxsPSJsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCAjNjY2NmZmIDAlLCAjOTk5OWZmIDEwMCUpIi8+CjxjaXJjbGUgY3g9IjE1MCIgY3k9IjEyNSIgcj0iNDAiIGZpbGw9IiMxYTFhMmUiLz4KPHN2Zz4K" alt="Music Education">
+                <div class="gallery-overlay">
+                    <div class="overlay-text">Music Education</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDMwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjUwIiBmaWxsPSJsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCAjMzNjYzMzIDAlLCAjNjZmZjY2IDEwMCUpIi8+CjxwYXRoIGQ9Ik01MCAyMDBMMTAwIDEwMEwxNTAgMTUwTDIwMCA1MEwyNTAgMTIwIiBzdHJva2U9IiMxYTFhMmUiIHN0cm9rZS13aWR0aD0iNCIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K" alt="Community Events">
+                <div class="gallery-overlay">
+                    <div class="overlay-text">Community Events</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDMwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjUwIiBmaWxsPSJsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCAjZmYzMzY2IDAlLCAjZmY2Njk5IDEwMCUpIi8+CjxyZWN0IHg9IjEwMCIgeT0iMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjMWExYTJlIiByeD0iNSIvPgo8L3N2Zz4K" alt="Recording Sessions">
+                <div class="gallery-overlay">
+                    <div class="overlay-text">Recording Sessions</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDMwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjUwIiBmaWxsPSJsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCAjZmZjYzMzIDAlLCAjZmZkZDY2IDEwMCUpIi8+CjxjaXJjbGUgY3g9IjgwIiBjeT0iMTAwIiByPSIyMCIgZmlsbD0iIzFhMWEyZSIvPgo8Y2lyY2xlIGN4PSIyMjAiIGN5PSIxNTAiIHI9IjIwIiBmaWxsPSIjMWExYTJlIi8+Cjwvc3ZnPgo=" alt="Workshops">
+                <div class="gallery-overlay">
+                    <div class="overlay-text">Music Workshops</div>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDMwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjUwIiBmaWxsPSJsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCAjOTkzM2ZmIDAlLCAjYmI2NmZmIDEwMCUpIi8+CjxwYXRoIGQ9Ik0xMDAgNTBMMTIwIDcwTDE1MCA0MEwxODAgNjBMMjAwIDkwIiBzdHJva2U9IiMxYTFhMmUiIHN0cm9rZS13aWR0aD0iNCIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K" alt="Collaborations">
+                <div class="gallery-overlay">
+                    <div class="overlay-text">Artistic Collaborations</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="programs" class="section">
+        <div class="programs">
+            <h2>Our Programs</h2>
+            <div class="program-grid">
+                <div class="program-card">
+                    <div class="program-icon">🎸</div>
+                    <h3>Instrumental Training</h3>
+                    <p>Comprehensive training programs for guitar, bass, drums, piano, and other instruments with experienced instructors.</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">🎤</div>
+                    <h3>Vocal Development</h3>
+                    <p>Voice training, performance coaching, and technique development for singers of all genres and skill levels.</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">🎵</div>
+                    <h3>Band Formation</h3>
+                    <p>Connect with other musicians, form bands, and participate in collaborative musical projects and performances.</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">🎭</div>
+                    <h3>Live Performances</h3>
+                    <p>Regular performance opportunities at local venues, festivals, and community events to showcase your talent.</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">🎼</div>
+                    <h3>Music Theory</h3>
+                    <p>Comprehensive music theory education from basic concepts to advanced composition and arrangement techniques.</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">🏆</div>
+                    <h3>Competitions</h3>
+                    <p>Participate in local and national music competitions to challenge yourself and gain recognition for your skills.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="contact">
+            <h2>Get In Touch</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Ready to join The New Tone community? Let's make music together!</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>📍 Location</h3>
+                    <p>Tarlac City, Central Luzon, Philippines</p>
+                </div>
+                <div class="contact-item">
+                    <h3>📞 Phone</h3>
+                    <p>+63 XXX XXX XXXX</p>
+                </div>
+                <div class="contact-item">
+                    <h3>✉️ Email</h3>
+                    <p>info@thenewtone.com</p>
+                </div>
+                <div class="contact-item">
+                    <h3>🌐 Social Media</h3>
+                    <p>Follow us on Facebook, Instagram, and YouTube</p>
+                </div>
+            </div>
+            
+            <button class="cta-button" style="margin-top: 2rem;">Join Our Community</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 The New Tone Music Organization. All rights reserved.</p>
+        <p style="margin-top: 1rem; color: #ffd700;">"Where Every Tone Rocks"</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(26, 26, 46, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.background = 'rgba(26, 26, 46, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Add click handlers to navigation links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+
+        // Animate gallery items on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.gallery-item, .program-card').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
